@@ -10,16 +10,15 @@ LIB := -L$(LIB_DIR)
 
 BUILD_DIR := build
 
-CFLAGS += -ggdb `pkg-config --cflags opencv4`
-LDFLAGS += `pkg-config --libs opencv4`
+CFLAGS += -ggdb #`pkg-config --cflags opencv4`
+#LDFLAGS += `pkg-config --libs opencv4`
 
-
-# == Variables of files == 
+# == Variables of files ==
 
 # defines what is the main (everything on src/)
 MAIN := $(wildcard $(SRC_DIR)/*.cpp)
 
-# defines the name of the executable and where to 
+# defines the name of the executable and where to
 #place them (the source without .cpp and on BUILD_DIR)
 TARGET_EXE := $(patsubst %.cpp, $(BUILD_DIR)/%, $(notdir $(MAIN)))
 
@@ -33,20 +32,20 @@ OBJ := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(notdir $(SRC)))
 F ?= main
 
 #default parameter
-P ?= ~/Documents/Phi/images/sample.jpeg
+# P ?= ~/Documents/Phi/images/sample.jpeg
 
 # ========================
 
 
-# == Rules of rules == 
+# == Rules of rules ==
 
 # Create executables
 $(TARGET_EXE): $(BUILD_DIR)/%: $(SRC_DIR)/%.cpp $(OBJ)
-	$(CC) -o $@ $^ $(INC) $(CFLAGS) $(LIB) $(LDFLAGS) 
+	$(CC) -o $@ $^ $(INC) $(CFLAGS) $(LIB) $(LDFLAGS)
 
 # Create objects
 $(OBJ_DIR)/%.o:
-	$(CC) -c -o $@ $(filter %/$*.cpp, $(SRC)) $(INC) $(CFLAGS) $(LIB) $(LDFLAGS) 
+	$(CC) -c -o $@ $(filter %/$*.cpp, $(SRC)) $(INC) $(CFLAGS) $(LIB) $(LDFLAGS)
 
 
 # =====================
@@ -59,7 +58,7 @@ $(OBJ_DIR)/%.o:
 all: $(TARGET_EXE)
 
 run: $(BUILD_DIR)/$(F)
-	@./$< $(P)
+	@./$<
 
 print-%:
 	@echo "$* = $($*)"

@@ -8,21 +8,22 @@ class Road;
 
 class Car {
   public:
-    Car(int x, double v, const Road *road);
-    Car(int x, const Road *road);
-    int get_x();
-    double get_v();
+    Car(double x, double v, const Road *road);
+    Car(double x, const Road *road);
+    double x();
+    double v();
     void set(int x, double v);
     void draw();
     void stop();
     void set_front_car(Car &car);
     Car get_front_car();
+    void f(double u, double& xdot, double& vdot) const;
 
   private:
-    int x;
-    double v = 0;
+    double _x;
+    double _v = 0;
     const Road *road;
-    Car *front_car;
+    const Car *front_car;
 };
 
 #endif

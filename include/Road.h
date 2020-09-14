@@ -4,19 +4,24 @@
 #include "../include/vibes.h" // might need to change that
 #include <vector>
 #include <math.h>
-#include "../include/car.h"
+#include "../include/Car.h"
 
 class Car;
+
+double sawtooth(double x);
+bool collision(Car& cm1, Car& c1);
 
 class Road {
   public:
     Road(int length);
     ~Road();
-    void draw(const std::vector<Car> &cars);
+
     int length() const;
     double radius() const;
-    double sawtooth(double x);
-    double circular_dist(double xm1, double x1);
+
+    void draw(const std::vector<Car> &cars) const;
+
+    double circular_dist(const Car& cm1, const Car& c1) const;
 
   private:
     const int l;             // circunference of the route

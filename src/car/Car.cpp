@@ -1,4 +1,4 @@
-#include "../../include/car.h"
+#include "../../include/Car.h"
 #include <iostream>
 
 Car::Car(double x, double v, const Road *road) : _x(x), _v(v), road(road) {
@@ -9,11 +9,11 @@ Car::Car(double x, const Road *road) : _x(x), _v(0.), road(road) {
 
 }
 
-double Car::x() {
+double Car::x() const {
   return _x;
 }
 
-double Car::v() {
+double Car::v() const {
   return _v;
 }
 
@@ -26,16 +26,15 @@ void Car::stop() {
   _v = 0.0;
 }
 
-void Car::set_front_car(Car &car) {
-  front_car = &car;
+void Car::set_front_car(Car *car) {
+  _front_car = car;
 }
 
-Car Car::get_front_car() {
-  return *front_car;
+const Car* Car::get_front_car() const{
+  return _front_car;
 }
 
-void Car::draw()
-{
+void Car::draw() const {
   double r = road->radius();
   double th = _x / r;         // theta defined by position on the road
   double px = r * cos(th);   // pos x in the plane
@@ -46,8 +45,25 @@ void Car::draw()
   vibes::drawTank(px, py, pr, 4, "black[white]", vibesParams("figure", "Jam"));
 }
 
+bool Car::collision() const {
+  double cd = road->circular_dist(*get_front_car(), *this);
+  std::cout << "cd = " << cd << std::endl;
+  return fabs(cd) < 5;
+}
+
 void Car::f(double u, double& xdot, double& vdot) const
 {
   xdot = _v;
   vdot = u; // according to equation (1)
+}
+
+double Car::u(double d0, double v0) const {
+  return 1;
+}
+
+void Car::euler(double xdot, double vdot, double dt) {
+  double dx = xdot*dt;
+  double dv = vdot*dt;
+  _x = _x + dx;  // x = xdot * dt
+  _v = _v + dv;  // v = vdot * dt
 }

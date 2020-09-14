@@ -1,4 +1,4 @@
-#include "../../include/road.h"
+#include "../../include/Road.h"
 #include <iostream>
 
 Road::Road(int l) : l(l) {
@@ -23,7 +23,7 @@ double Road::radius() const{
     return length() / (2 * M_PI);  // radius based on desired circunference
 }
 
-void Road::draw(const std::vector<Car> &cars) {
+void Road::draw(const std::vector<Car> &cars) const {
   double r = radius();
   double r1 = r - 2.5;        // two circles will be 2.5 units distant from the middle of the road
   double r2 = r + 2.5;        //  so that to have 5 width
@@ -37,12 +37,13 @@ void Road::draw(const std::vector<Car> &cars) {
   }
 }
 
-double Road::sawtooth(double x){
+double sawtooth(double x){
   return (2 * atan(tan(x/2)));
 }
 
-double Road::circular_dist(double xm1, double x1) {
+double Road::circular_dist(const Car& cm1, const Car& c1) const {
   double r = radius();
-  double di = r * ( sawtooth(-M_PI + (xm1-x1)/r ) + M_PI);
+  double arg = (cm1.x() - c1.x())/r - M_PI;
+  double di = r * (sawtooth(arg) + M_PI);
   return di;
 }

@@ -2,8 +2,8 @@
 #include <unistd.h>
 #include <vector>
 
-#include "../include/road.h"
-#include "../include/car.h"
+#include "../include/Road.h"
+#include "../include/Car.h"
 
 void euler(double& x, double& v, double xdot, double vdot, double dt);
 
@@ -24,30 +24,28 @@ int main(int argc, char *argv[])
   }
 
   for (int i = 0; i < n; i++)
-    cars[i].set_front_car(cars[(i+1)%n]);
+    cars[i].set_front_car(&cars[(i+1)%n]);
 
-//  int u;
-//  double xdot, vdot;
-//  u = xdot = vdot = 1; // current reading, variation of pos and acceleration
+  double xdot, vdot;
 
-//  for (int t = 0; t < 101; t++)
-//  {
-//    std::cout << "t: " << t << std::endl;
+  for (double t = 0; t < 101; t+=dt) {
+    std::cout << "t: " << t << std::endl;
+
+    for (int i = 0; i < n; i++){
+      double u = cars[i].u(d0, v0) - i*0.04; // for testing collisions
+
+      cars[i].f(u,xdot,vdot);
+      cars[i].euler(xdot,vdot,dt);
+
+      if (cars[i].collision()) {
+        cars[i].stop();
+      }
+
+    }
     road.draw((const std::vector<Car>&)cars);
-    cars[0].draw();
 
     usleep(dt * 500000);
-//  }
+  }
 
- //   f(x,v,u,xdot,vdot);
- //   euler(x,v,xdot,vdot,dt);
   return 0;
-}
-
-void euler(double& x, double& v, double xdot, double vdot, double dt)
-{
-  double dx = xdot*dt;
-  double dv = vdot*dt;
-  x = x + dx;  // x = xdot * dt
-  v = v + dv;  // v = vdot * dt
 }

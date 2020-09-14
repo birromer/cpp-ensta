@@ -4,6 +4,7 @@
 
 #include "../include/Road.h"
 #include "../include/Car.h"
+#include "../include/AutonomousCar.h"
 
 void euler(double& x, double& v, double xdot, double vdot, double dt);
 
@@ -16,10 +17,10 @@ int main(int argc, char *argv[])
   const double v0 = 3.;              // desired speed
 
   Road road(l);
-  std::vector<Car> cars;
+  std::vector<AutonomousCar> cars;
 
   for (int i = 0; i < n; i++) {
-    Car new_car(4*i, &road);
+    AutonomousCar new_car(4*i, &road);
     cars.push_back(new_car);
   }
 
@@ -32,7 +33,8 @@ int main(int argc, char *argv[])
     std::cout << "t: " << t << std::endl;
 
     for (int i = 0; i < n; i++){
-      double u = cars[i].u(d0, v0) - i*0.04; // for testing collisions
+      //double u = cars[i].u(d0, v0) - i*0.04; // for testing collisions
+      double u = cars[i].u(d0, v0); // for testing collisions
 
       cars[i].f(u,xdot,vdot);
       cars[i].euler(xdot,vdot,dt);
@@ -40,10 +42,8 @@ int main(int argc, char *argv[])
       if (cars[i].collision()) {
         cars[i].stop();
       }
-
     }
     road.draw((const std::vector<Car>&)cars);
-
     usleep(dt * 500000);
   }
 

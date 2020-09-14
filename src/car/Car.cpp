@@ -34,6 +34,10 @@ const Car* Car::get_front_car() const{
   return _front_car;
 }
 
+const Road* Car::get_road() const {
+  return road;
+}
+
 void Car::draw() const {
   double r = road->radius();
   double th = _x / r;         // theta defined by position on the road

@@ -19,10 +19,11 @@ class Car {
 
     void draw() const;
 
-    void set_front_car(Car *car);
-    const Car* get_front_car() const;
+    void set_front_car(Car *car); // defines the front car
+    const Car* get_front_car() const; // gets a *pointer* to the car in the front
+    const Road* get_road() const; // gets a *pointer* to the road
 
-    bool collision() const;
+    bool collision() const; // tests if circular distance smaller than 4 (size of the car)
 
     void f(double u, double& xdot, double& vdot) const;
     double u(double d0, double v0) const;

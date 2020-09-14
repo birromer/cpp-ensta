@@ -1,4 +1,5 @@
 #include "../../include/car.h"
+#include <iostream>
 
 Car::Car(double x, double v, const Road *road) : _x(x), _v(v), road(road) {
 
@@ -35,8 +36,8 @@ Car Car::get_front_car() {
 
 void Car::draw()
 {
-  double r = road->length();
-  double th = x() / r;         // theta defined by position on the road
+  double r = road->radius();
+  double th = _x / r;         // theta defined by position on the road
   double px = r * cos(th);   // pos x in the plane
   double py = r * sin(th);   // pos x in the plane
   double pr = th + M_PI/2.;  // heading

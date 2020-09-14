@@ -32,10 +32,9 @@ void Road::draw(const std::vector<Car> &cars) {
   vibes::drawCircle(0, 0, r1);
   vibes::drawCircle(0, 0, r2);
 
-//  for (Car car : cars) {
-//    std::cout << "x: " << car.x() << " y: " << car.v() << std::endl;
-//    car.draw();
-//  }
+  for (Car car : cars) {
+    car.draw();
+  }
 }
 
 double Road::sawtooth(double x){

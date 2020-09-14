@@ -22,8 +22,7 @@ double Road::radius() {
     return l / (2 * M_PI);  // radius based on desired circunference
 }
 
-void Road::draw(double cx, double cy)
-{
+void Road::draw(double cx, double cy, std::vector<Car> cars) {
   double r = radius();
   double r1 = r - 2.5;        // two circles will be 2.5 units distant from the middle of the road
   double r2 = r + 2.5;        //  so that to have 5 width
@@ -31,4 +30,9 @@ void Road::draw(double cx, double cy)
   vibes::clearFigure("Jam");
   vibes::drawCircle(cx, cy, r1);
   vibes::drawCircle(cx, cy, r2);
+
+  for (Car car : cars) {
+    car.draw();
+  }
+
 }

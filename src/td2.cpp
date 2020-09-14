@@ -1,5 +1,6 @@
 #include <iostream>
 #include <unistd.h>
+#include <vector>
 
 #include "../include/road.h"
 #include "../include/car.h"
@@ -17,23 +18,31 @@ int main(int argc, char *argv[])
   const double d0 = l/n; // desired distance between cars (being read)
 
   Road road(l);
+  std::vector<Car> cars;
 
+  for (int i = 0; i < n; i++) {
+    Car new_car(4*i, &road);
+    cars.push_back(new_car);
+  }
+
+  for (int i = 0; i < n; i++)
+    cars[i].set_front_car(cars[(i+1)%n]);
+
+  
 //  int u, n;
 //  double x, v, xdot, vdot, v0, d0;
 
 
-
-
-  x  = v = 0;           // current position and speed
-  u  = xdot = vdot = 1; // current reading, variation of pos and acceleration
+//  x  = v = 0;           // current position and speed
+//  u  = xdot = vdot = 1; // current reading, variation of pos and acceleration
 
   for (int t = 0; t < 101; t++)
   {
-    std::cout << "t: " << t << std::endl;
-    f(x,v,u,xdot,vdot);
-    euler(x,v,xdot,vdot,dt);
+ //   std::cout << "t: " << t << std::endl;
+ //   f(x,v,u,xdot,vdot);
+ //   euler(x,v,xdot,vdot,dt);
 
-    road.draw(0,0,r);
+ //   road.draw(0,0,r);
 //    road.draw_robot(x,r);
 
     usleep(dt * 500000);

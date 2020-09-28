@@ -51,7 +51,6 @@ void Car::draw() const {
 
 bool Car::collision() const {
   double cd = road->circular_dist(*get_front_car(), *this);
-  std::cout << "cd = " << cd << std::endl;
   return fabs(cd) < 5;
 }
 

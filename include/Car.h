@@ -15,7 +15,7 @@ class Car {
     double v() const;
 
     void set(int x, double v);
-    void stop();
+    void stop(); // sets v to 0
 
     void draw() const;
 

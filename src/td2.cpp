@@ -19,27 +19,27 @@ int main(int argc, char *argv[])
   Road road(l);
   std::vector<AutonomousCar> cars;
 
-  for (int i = 0; i < n; i++) {
+  for (int i = 0; i < n; i++) { // creates cars with defined position
     AutonomousCar new_car(4*i, &road);
     cars.push_back(new_car);
   }
 
-  for (int i = 0; i < n; i++)
+  for (int i = 0; i < n; i++) // sets the front_car value
     cars[i].set_front_car(&cars[(i+1)%n]);
 
   double xdot, vdot;
 
   for (double t = 0; t < 101; t+=dt) {
-    std::cout << "t: " << t << std::endl;
+//    std::cout << "t: " << t << std::endl;
 
-    for (int i = 0; i < n; i++){
+    for (int i = 0; i < n; i++){ 
       //double u = cars[i].u(d0, v0) - i*0.04; // for testing collisions
-      double u = cars[i].u(d0, v0); // for testing collisions
+      double u = cars[i].u(d0, v0); // autonomous car pd control
 
-      cars[i].f(u,xdot,vdot);
-      cars[i].euler(xdot,vdot,dt);
+      cars[i].f(u,xdot,vdot); // evolution function
+      cars[i].euler(xdot,vdot,dt); // step on the euler integration
 
-      if (cars[i].collision()) {
+      if (cars[i].collision()) { // stops if distance between cars smaller than car
         cars[i].stop();
       }
     }

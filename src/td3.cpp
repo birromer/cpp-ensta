@@ -5,8 +5,8 @@
 #include "../include/Cell.h"
 
 struct Maze {
-    const Cell *init;  // the whole graph can be explored having the root
-    const Cell *exit;
+    Cell *init;  // the whole graph can be explored having the root
+    Cell *exit;
 };
 
 void draw_gate(const Cell *n1, const Cell *n2) {  // two immutable cells by reference
@@ -29,7 +29,14 @@ void display_graph(Cell *cell) {
     }
 }
 
-Maze create_maze(const Cell *init, const Cell *exit) {
+void display(Maze m) {
+    display_graph(m.init);
+    vibes::drawCircle(m.init->m_x+0.5, m.init->m_y+0.5, 0.3);
+    vibes::drawCircle(m.exit->m_x+0.5, m.exit->m_y+0.5, 0.3);
+
+}
+
+Maze create_maze(Cell *init, Cell *exit) {
     Maze maze;
     maze.init = init;
     maze.exit = exit;
@@ -45,20 +52,46 @@ int main() {
                             );
     vibes::axisLimits(0-0.5, 4+0.5, 0-0.5, 4+0.5);
 
-    Cell *ini = new Cell(0,0);
+    // the cells
+    Cell *c11 = new Cell(1,1);
+    Cell *c12 = new Cell(1,2);
+    Cell *c13 = new Cell(1,3);
+    Cell *c14 = new Cell(1,4);
+    Cell *c21 = new Cell(2,1);
+    Cell *c22 = new Cell(2,2);
+    Cell *c23 = new Cell(2,3);
+    Cell *c24 = new Cell(2,4);
+    Cell *c31 = new Cell(3,1);
+    Cell *c32 = new Cell(3,2);
+    Cell *c33 = new Cell(3,3);
+    Cell *c34 = new Cell(3,4);
+    Cell *c41 = new Cell(4,1);
+    Cell *c42 = new Cell(4,2);
+    Cell *c43 = new Cell(4,3);
+    Cell *c44 = new Cell(4,4);
 
-//    Cell *test = new Cell(9,90);
-//    ini->add_neighb(test);
+    // the connections
+    Cell::add_neighb(c14,c24);
+    Cell::add_neighb(c24,c34);
+    Cell::add_neighb(c34,c44);
+    Cell::add_neighb(c44,c43);
+    Cell::add_neighb(c43,c42);
+    Cell::add_neighb(c42,c41);
+    Cell::add_neighb(c41,c31);
+    Cell::add_neighb(c31,c32);
+    Cell::add_neighb(c32,c22);
+    Cell::add_neighb(c22,c23);
+    Cell::add_neighb(c23,c33);
+    Cell::add_neighb(c22,c21);
+    Cell::add_neighb(c21,c11);
+    Cell::add_neighb(c11,c12);
+    Cell::add_neighb(c12,c13);
 
-    display_graph(ini);
+    display_graph(c21);
 
-//    Maze maze = create_maze(4,4);
-//    display_graph(ini);
+    Maze maze = create_maze(c13,c14);
 
-
-
-
-
+    display(maze);
 
     return 0;
 }

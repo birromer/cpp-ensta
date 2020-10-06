@@ -8,7 +8,7 @@ class Cell {
   public:
     Cell(int x, int y);
     void add_neighb(Cell *c);
-    void add_neighb(Cell *c1, Cell *c2);
+    static void add_neighb(Cell *c1, Cell *c2);
 
 //  private:
     double m_x;

@@ -12,8 +12,6 @@ void Cell::add_neighb(Cell *c) {
 
    for (int i=0; i < this->m_nb_neighb; i++) {  // searches for the case neighbour already exists
       if (this->m_neighb[i]->m_x == c->m_x && this->m_neighb[i]->m_y == c->m_y) {
-//         std::cout << this->m_x << this->m_y << " already has " << c->m_x << c->m_y << std::endl;
-//         std::cout << "Finished " << c->m_x << c->m_y << " to " << this->m_x << this->m_y << std::endl << std::endl;
          return;
       }
    }
@@ -23,7 +21,6 @@ void Cell::add_neighb(Cell *c) {
       this->m_nb_neighb = 1;  // increases number of neighbours, as another is being added
       this->m_neighb[0] = c;  // sets new neighbour
       first = true;
-//      std::cout << "Init " << this->m_x << this->m_y << std::endl;
    }
 
    if (!first) { // if it is the first time it has already incremented
@@ -40,7 +37,6 @@ void Cell::add_neighb(Cell *c) {
 
    }
 
-//   std::cout << "Finished " << c->m_x << c->m_y << " to " << this->m_x << this->m_y << std::endl << std::endl;
    c->add_neighb(this);                // repeats for neighbour
 }
 

@@ -14,6 +14,7 @@ class Cell {
     double m_x;
     double m_y;
 
+    bool m_explored = false;
     bool m_displayed = false;
     int m_nb_neighb = 0;
     Cell **m_neighb = NULL;

@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include "../include/Cell.h"
+#include "../include/vibes.h"
 
 class Cell;
 

@@ -3,12 +3,14 @@
 #include <cstddef>
 #include <cstdlib>
 #include <cstdio>
+#include <string>
 
 class Cell {
   public:
     Cell(int x, int y);
     void add_neighb(Cell *c);
     static void add_neighb(Cell *c1, Cell *c2);
+    std::string toString();
 
 //  private:
     double m_x;

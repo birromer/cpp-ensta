@@ -11,9 +11,11 @@ struct Maze {
 };
 
 void draw_gate(const Cell *n1, const Cell *n2);
+void draw_link(const Cell *c1, const Cell *c2);
 void display_graph(Cell *cell);
 void display(Maze m);
 Maze create_maze(Cell *init, Cell *exit);
+bool find_path(Cell *c, Cell *cf, Path *path);
 
 int main() {
     vibes::beginDrawing();
@@ -65,7 +67,59 @@ int main() {
 
     display(maze);
 
+    Path *path = new Path(c13);
+    bool path_exists = find_path(c13, c14, path);
+
+    if (path_exists)
+        path->print_path();
+    else
+        std::cout << "There is no path between " << c13->toString() << " and " << c14->toString() << std::endl;
+
+    // freeing memory
+    delete path;
+    delete c11;
+    delete c12;
+    delete c13;
+    delete c14;
+    delete c21;
+    delete c22;
+    delete c23;
+    delete c24;
+    delete c31;
+    delete c32;
+    delete c33;
+    delete c34;
+    delete c41;
+    delete c42;
+    delete c43;
+    delete c44;
+
     return 0;
+}
+
+bool compare_cells(const Cell *c1, const Cell *c2) {
+    return (c1->m_x == c2->m_x && c1->m_y == c2->m_y);
+}
+
+bool find_path(Cell *c, Cell *cf, Path *path) {
+    if (compare_cells(c, cf)) {  // tests if current cell if the desired one
+        path->add_to_path(cf);
+        return true;
+    } else {
+        Cell * c_curr;
+        for (int i=0; i<c->m_nb_neighb; i++) {
+            c_curr = c->m_neighb[i];
+            if (c_curr->m_explored == true)
+                continue;
+            else {
+                c_curr->m_explored = true;
+                path->add_to_path(c);
+                return find_path(c->m_neighb[i], cf, path);
+            }
+        }
+    }
+
+    return false;
 }
 
 void draw_gate(const Cell *n1, const Cell *n2) {  // two immutable cells by reference
@@ -90,8 +144,8 @@ void display_graph(Cell *cell) {
 
 void display(Maze m) {
     display_graph(m.init);
-    vibes::drawCircle(m.init->m_x+0.5, m.init->m_y+0.5, 0.3);
-    vibes::drawCircle(m.exit->m_x+0.5, m.exit->m_y+0.5, 0.3);
+    vibes::drawCircle(m.init->m_x+0.5, m.init->m_y+0.5, 0.3, "darkGreen[darkGreen]");
+    vibes::drawCircle(m.exit->m_x+0.5, m.exit->m_y+0.5, 0.3, "organge[orange]");
 
 }
 

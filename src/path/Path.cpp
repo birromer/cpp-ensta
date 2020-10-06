@@ -8,7 +8,7 @@ Path::~Path() {
     if (this->m_next != NULL)
         delete this->m_next;
 
-    delete this->m_c;
+//    delete this->m_c;
 }
 
 void Path::add_to_path(const Cell *c) {
@@ -19,10 +19,16 @@ void Path::add_to_path(const Cell *c) {
 }
 
 void Path::print_path() {
-    if (this->m_next == NULL)
-        printf("(%f,%f)\n", this->m_c->m_x, this->m_c->m_y);
+
+    if (this->m_next == NULL) {
+        return;
+    }
     else {
-        printf("(%f,%f) -> ", this->m_c->m_x, this->m_c->m_y);
+        const Cell *c1 = this->m_c;
+        const Cell *c2 = this->m_next->m_c;
+        vibes::drawBox(std::min(c1->m_x, c2->m_x) + 0.45, std::max(c1->m_x, c2->m_x) + 0.55,
+                       std::min(c1->m_y, c2->m_y) + 0.45, std::max(c1->m_y, c2->m_y) + 0.55,
+                   "blue[blue]");
         this->m_next->print_path();
     }
 }

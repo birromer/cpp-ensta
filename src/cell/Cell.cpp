@@ -44,3 +44,13 @@ void Cell::add_neighb(Cell *c) {
 void Cell::add_neighb(Cell *c1, Cell *c2) {
    c1->add_neighb(c2);
 }
+
+std::string Cell::toString() {
+   std::string tmp = "(";
+   tmp.append(std::to_string(this->m_x));
+   tmp.append(",");
+   tmp.append(std::to_string(this->m_y));
+   tmp.append(")");
+
+   return tmp;
+}

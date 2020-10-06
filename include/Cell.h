@@ -1,7 +1,8 @@
-#ifndef __CELL_H_
-#define __CELL_H_
+#pragma once
 
 #include <cstddef>
+#include <cstdlib>
+#include <cstdio>
 
 class Cell {
   public:
@@ -12,10 +13,8 @@ class Cell {
 //  private:
     double m_x;
     double m_y;
-    bool m_displayed;
 
+    bool m_displayed = false;
     int m_nb_neighb = 0;
     Cell **m_neighb = NULL;
 };
-
-#endif // __CELL_H_

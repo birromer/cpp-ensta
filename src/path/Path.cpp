@@ -7,7 +7,6 @@ Path::Path(const Cell *c) : m_c(c) {
 Path::~Path() {
     if (this->m_next != NULL)
         delete this->m_next;
-
 //    delete this->m_c;
 }
 

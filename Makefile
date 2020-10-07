@@ -10,7 +10,7 @@ LIB := -L$(LIB_DIR)
 
 BUILD_DIR := build
 
-CFLAGS += -ggdb #`pkg-config --cflags opencv4`
+CFLAGS += -ggdb -g -O0 # -fsanitize=address #`pkg-config --cflags opencv4`
 #LDFLAGS += `pkg-config --libs opencv4`
 
 # == Variables of files ==

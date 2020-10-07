@@ -2,12 +2,14 @@
 #include <iostream>
 
 Cell::Cell(int x, int y) : m_x(x), m_y(y) {
-   
+
+}
+Cell::~Cell() {
+   delete m_neighb;
 }
 
 
 void Cell::add_neighb(Cell *c) {
-//   std::cout << "Add " << c->m_x << c->m_y << " to " << this->m_x << this->m_y << std::endl;
    bool first = false;
 
    for (int i=0; i < this->m_nb_neighb; i++) {  // searches for the case neighbour already exists
@@ -29,12 +31,13 @@ void Cell::add_neighb(Cell *c) {
       // reallocation uses another area of the memory
       this->m_neighb = new Cell*[this->m_nb_neighb];  // allocates new memory space so that bigger array can be stored
 
+//      memcpy(this->m_neighb, aux_m_neighb, this->m_nb_neighb-1);
       for (int i=0; i<m_nb_neighb-1; i++)  // as one cannot test if previous addresses were reused, previous elements
-         m_neighb[i] = aux_m_neighb[i];    // are copied
+         this->m_neighb[i] = aux_m_neighb[i];    // are copied
 
       this->m_neighb[m_nb_neighb-1] = c;  // sets new neighbour
 
-
+      delete[] aux_m_neighb;
    }
 
    c->add_neighb(this);                // repeats for neighbour

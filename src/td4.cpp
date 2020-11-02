@@ -127,8 +127,8 @@ Maze read_maze(const std::string& file_name) {
     std::string tmp;  // temporary string for reading the file
 
     // each element will be referenced by a pair <int, int>
-    // and will a list of pairs, as the number is fixed and all reads/writes will be sequential
-    std::map<std::pair<int,int>, Cell*> m_cells; 
+    // and will store the cell and a list of pairs, as the number is fixed and all reads/writes will be sequential
+    std::map<std::pair<int,int>, std::pair<Cell*, std::list<std::pair<int,int>>>> m_cells; 
     float init_x, init_y, end_x, end_y;
 
     std::getline(f, tmp);  // # Start:
@@ -144,29 +144,47 @@ Maze read_maze(const std::string& file_name) {
     std::cout << "End: " << end_x << " " << end_y << std::endl;
 
     std::getline(f, tmp);  // # Cells: 
+
+//    int initial_pos = f.tellg();
+
     while (!f.eof()) {
-        Cell *c = new Cell(0,0);
-        f >> *c;
+        Cell *c_base = new Cell(0,0);
+        f >> *c_base;
+        std::pair<int,int>c_xy (c_base->m_x, c_base->m_y);   // instantiate the pair for future reference
+
         int nb_neighors = f.get() - 48;
+        std::list<std::pair<int,int>> neighbours;
 
+        Cell *c = new Cell(0,0);
+        for (int i = 0; i < nb_neighors; i++) {
+            f >> *c;
+            neighbours.push_back(std::make_pair(c->m_x, c->m_y));
+        }
         f.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-        std::pair<int,int>c_xy (c->m_x, c->m_y);   // instantiate the pair for future reference
-        m_cells[c_xy] = c;
+        m_cells[c_xy] = std::make_pair(c_base, neighbours);
     }
-
-//    while (!f.eof()) {
-//        std::getline(f, tmp);  // read current line
-//    }
 
     for (auto it = m_cells.begin(); it != m_cells.end(); it++) {
-        std::cout << it->first.first << "," << it->first.second << " : " << it->second->toString() << std::endl;
-    }
+        std::cout << std::endl << "(" << it->first.first << "," << it->first.second << ") " << std::endl;;
+        std::cout << " -> Cell = " << it->second.first->toString() << std::endl;
+        std::cout << " -> Neighbours = ";
+        for (auto it2 = it->second.second.begin() ; it2 != it->second.second.end(); it2++) {
+            std::cout << ": (" << it2->first << "," << it2->second << ") ";
+        }
+     }
 
-    
+//    f.clear();  // resets error bits
+//    f.seekg(initial_pos);  // returns to read the neighbours
+//
+//    while (!f.eof()) {
+//        std::getline(f, tmp);  // read current line
+//
+//    }
+//
+//
+//
     f.close();
-
-//    Maze maze = create_maze(init,end);
+//    Maze maze = create_maze(m_cells[std::make_pair(init_x, init_y)],m_cells[std::make_pair(end_x, end_y)]);
 //    return maze;
 }
 

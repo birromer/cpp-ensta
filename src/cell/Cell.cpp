@@ -5,7 +5,7 @@ Cell::Cell(int x, int y) : m_x(x), m_y(y) {
 
 }
 Cell::~Cell() {
-   delete m_neighb;
+   delete[] m_neighb;
 }
 
 
@@ -56,4 +56,16 @@ std::string Cell::toString() {
    tmp.append(")");
 
    return tmp;
+}
+
+std::ostream& operator<<(std::ostream& stream, const Cell& c) {
+   std::string tmp = "(";
+   tmp.append(std::to_string((int)c.m_x));
+   tmp.append(",");
+   tmp.append(std::to_string((int)c.m_y));
+   tmp.append(")");
+
+   stream << tmp;
+
+   return stream;
 }

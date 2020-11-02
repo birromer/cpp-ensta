@@ -35,89 +35,99 @@ int main() {
                             );
     vibes::axisLimits(0-0.5, 4+0.5, 0-0.5, 4+0.5);
 
-//    // the cells
-//    Cell *c11 = new Cell(1,1);
-//    Cell *c12 = new Cell(1,2);
-//    Cell *c13 = new Cell(1,3);
-//    Cell *c14 = new Cell(1,4);
-//    Cell *c21 = new Cell(2,1);
-//    Cell *c22 = new Cell(2,2);
-//    Cell *c23 = new Cell(2,3);
-//    Cell *c24 = new Cell(2,4);
-//    Cell *c31 = new Cell(3,1);
-//    Cell *c32 = new Cell(3,2);
-//    Cell *c33 = new Cell(3,3);
-//    Cell *c34 = new Cell(3,4);
-//    Cell *c41 = new Cell(4,1);
-//    Cell *c42 = new Cell(4,2);
-//    Cell *c43 = new Cell(4,3);
-//    Cell *c44 = new Cell(4,4);
-//
-//    // the connections
-//    Cell::add_neighb(c14,c24);
-//    Cell::add_neighb(c24,c34);
-//    Cell::add_neighb(c34,c44);
-//    Cell::add_neighb(c44,c43);
-//    Cell::add_neighb(c43,c42);
-//    Cell::add_neighb(c42,c41);
-//    Cell::add_neighb(c41,c31);
-//    Cell::add_neighb(c31,c32);
-//    Cell::add_neighb(c32,c22);
-//    Cell::add_neighb(c22,c23);
-//    Cell::add_neighb(c23,c33);
-//    Cell::add_neighb(c22,c21);
-//    Cell::add_neighb(c21,c11);
-//    Cell::add_neighb(c11,c12);
-//    Cell::add_neighb(c12,c13);
-//
-//    display_graph(c21);
-//
-//    Maze maze = create_maze(c13,c14);
-//
-//    save_maze(maze, "td4_maze.txt");
-//
-//    display(maze);
-//
-//    Path *path = new Path(c13);
-//    bool path_exists = find_path(c13, c14, path);
-//
-//    if (path_exists)
-//        path->print_path();
-//    else
-//        std::cout << "There is no path between " << c13->toString() << " and " << c14->toString() << std::endl;
-//
-//    // freeing memory
-//    delete path;
-//    delete c11;
-//    delete c12;
-//    delete c13;
-//    delete c14;
-//    delete c21;
-//    delete c22;
-//    delete c23;
-//    delete c24;
-//    delete c31;
-//    delete c32;
-//    delete c33;
-//    delete c34;
-//    delete c41;
-//    delete c42;
-//    delete c43;
-//    delete c44;
 
-    Maze maze = read_maze("data/laby4x4.txt");
-//    Maze maze = read_maze("data/laby4x4.txt");
-//    Maze maze = read_maze("data/laby4x4.txt");
+    // -------------- activity B ---------------------
+    // the cells
+    Cell *c11 = new Cell(1,1);
+    Cell *c12 = new Cell(1,2);
+    Cell *c13 = new Cell(1,3);
+    Cell *c14 = new Cell(1,4);
+    Cell *c21 = new Cell(2,1);
+    Cell *c22 = new Cell(2,2);
+    Cell *c23 = new Cell(2,3);
+    Cell *c24 = new Cell(2,4);
+    Cell *c31 = new Cell(3,1);
+    Cell *c32 = new Cell(3,2);
+    Cell *c33 = new Cell(3,3);
+    Cell *c34 = new Cell(3,4);
+    Cell *c41 = new Cell(4,1);
+    Cell *c42 = new Cell(4,2);
+    Cell *c43 = new Cell(4,3);
+    Cell *c44 = new Cell(4,4);
 
-//    display(maze);
-//
-//    Path *path = new Path(c13);
-//    bool path_exists = find_path(c13, c14, path);
-//
-//    if (path_exists)
-//        path->print_path();
-//    else
-//        std::cout << "There is no path between " << c13->toString() << " and " << c14->toString() << std::endl;
+    // the connections
+    Cell::add_neighb(c14,c24);
+    Cell::add_neighb(c24,c34);
+    Cell::add_neighb(c34,c44);
+    Cell::add_neighb(c44,c43);
+    Cell::add_neighb(c43,c42);
+    Cell::add_neighb(c42,c41);
+    Cell::add_neighb(c41,c31);
+    Cell::add_neighb(c31,c32);
+    Cell::add_neighb(c32,c22);
+    Cell::add_neighb(c22,c23);
+    Cell::add_neighb(c23,c33);
+    Cell::add_neighb(c22,c21);
+    Cell::add_neighb(c21,c11);
+    Cell::add_neighb(c11,c12);
+    Cell::add_neighb(c12,c13);
+
+    display_graph(c21);
+
+    Maze maze = create_maze(c13,c14);
+
+    save_maze(maze, "td4_maze.txt");
+
+    display(maze);
+
+    Path *path = new Path(c13);
+    bool path_exists = find_path(c13, c14, path);
+
+    if (path_exists)
+        path->print_path();
+    else
+        std::cout << "There is no path between " << c13->toString() << " and " << c14->toString() << std::endl;
+
+    // freeing memory
+    delete path;
+    delete c11;
+    delete c12;
+    delete c13;
+    delete c14;
+    delete c21;
+    delete c22;
+    delete c23;
+    delete c24;
+    delete c31;
+    delete c32;
+    delete c33;
+    delete c34;
+    delete c41;
+    delete c42;
+    delete c43;
+    delete c44;
+
+    // -------------- END activity B ---------------------
+
+    // -------------- activity C ---------------------
+    vibes::newFigure("Maze4");
+    vibes::setFigureProperties("Maze4", vibesParams("x", 100, "y", 100, "width", 400, "height", 400));
+    vibes::axisLimits(0-0.5, 4+0.5, 0-0.5, 4+0.5);
+    Maze maze4 = read_maze("data/laby4x4.txt");
+    display(maze4);
+
+    vibes::newFigure("Maze8");
+    vibes::setFigureProperties("Maze8", vibesParams("x", 100, "y", 100, "width", 400, "height", 400));
+    vibes::axisLimits(0-0.5, 8+0.5, 0-0.5, 8+0.5);
+    Maze maze8 = read_maze("data/laby8x8.txt");
+    display(maze8);
+
+    vibes::newFigure("Maze10");
+    vibes::setFigureProperties("Maze10", vibesParams("x", 100, "y", 100, "width", 400, "height", 400));
+    vibes::axisLimits(0-0.5, 10+0.5, 0-0.5, 10+0.5);
+    Maze maze10 = read_maze("data/laby10x10.txt");
+    display(maze10);
+    // -------------- END activity C ---------------------
 
     return 0;
 }
@@ -127,25 +137,24 @@ Maze read_maze(const std::string& file_name) {
     std::string tmp;  // temporary string for reading the file
 
     // each element will be referenced by a pair <int, int>
-    // and will store the cell and a list of pairs, as the number is fixed and all reads/writes will be sequential
+    // and will store the cell and a list of pairs (the neighbours),
+    // a list is used because the number of neighbours is fixed and all reads/writes will be sequential
     std::map<std::pair<int,int>, std::pair<Cell*, std::list<std::pair<int,int>>>> m_cells; 
     float init_x, init_y, end_x, end_y;
 
-    std::getline(f, tmp);  // # Start:
+    std::getline(f, tmp);  // # Start: line
     std::getline(f, tmp);  // actual first cell
     init_x = (float)(tmp[1])-48;
     init_y = (float)(tmp[3])-48;
     std::cout << "Start: " << init_x << " " << init_y << std::endl;
 
-    std::getline(f, tmp);  // # End:
+    std::getline(f, tmp);  // # End: line
     std::getline(f, tmp);  // actual end cell
     end_x = (float)(tmp[1])-48;
     end_y = (float)(tmp[3])-48;
     std::cout << "End: " << end_x << " " << end_y << std::endl;
 
-    std::getline(f, tmp);  // # Cells: 
-
-//    int initial_pos = f.tellg();
+    std::getline(f, tmp);  // # Cells: line
 
     while (!f.eof()) {
         Cell *c_base = new Cell(0,0);
@@ -163,29 +172,22 @@ Maze read_maze(const std::string& file_name) {
         f.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         m_cells[c_xy] = std::make_pair(c_base, neighbours);
     }
+    f.close();
+
+    // creates maze 
+    Maze maze = create_maze(m_cells[std::make_pair(init_x, init_y)].first, m_cells[std::make_pair(end_x, end_y)].first); // sets root and finish cell
 
     for (auto it = m_cells.begin(); it != m_cells.end(); it++) {
-        std::cout << std::endl << "(" << it->first.first << "," << it->first.second << ") " << std::endl;;
-        std::cout << " -> Cell = " << it->second.first->toString() << std::endl;
-        std::cout << " -> Neighbours = ";
+//        std::cout << std::endl << "(" << it->first.first << "," << it->first.second << ") " << std::endl;;
+//        std::cout << " -> Cell = " << it->second.first->toString() << std::endl;
+//        std::cout << " -> Neighbours = ";
         for (auto it2 = it->second.second.begin() ; it2 != it->second.second.end(); it2++) {
-            std::cout << ": (" << it2->first << "," << it2->second << ") ";
+//            std::cout << ": (" << it2->first << "," << it2->second << ") ";
+            Cell::add_neighb(it->second.first, m_cells[std::make_pair(it2->first, it2->second)].first);
         }
-     }
+    }
 
-//    f.clear();  // resets error bits
-//    f.seekg(initial_pos);  // returns to read the neighbours
-//
-//    while (!f.eof()) {
-//        std::getline(f, tmp);  // read current line
-//
-//    }
-//
-//
-//
-    f.close();
-//    Maze maze = create_maze(m_cells[std::make_pair(init_x, init_y)],m_cells[std::make_pair(end_x, end_y)]);
-//    return maze;
+    return maze;
 }
 
 void save_cells(Cell* cell, std::ofstream *f) {

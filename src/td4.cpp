@@ -2,6 +2,8 @@
 #include <unistd.h>
 #include <string>
 #include <fstream>
+#include <list>
+#include <limits>
 
 #include "../include/vibes.h" // might need to change those includes
 #include "../include/Cell.h"
@@ -121,22 +123,47 @@ int main() {
 }
 
 Maze read_maze(const std::string& file_name) {
-    std::ifstream f(file_name);
-    std::string tmp;
+    std::ifstream f(file_name);  // initializes file interface
+    std::string tmp;  // temporary string for reading the file
+
+    // each element will be referenced by a pair <int, int>
+    // and will a list of pairs, as the number is fixed and all reads/writes will be sequential
+    std::map<std::pair<int,int>, Cell*> m_cells; 
+    float init_x, init_y, end_x, end_y;
 
     std::getline(f, tmp);  // # Start:
     std::getline(f, tmp);  // actual first cell
-    std::cout << tmp[1] << " " << tmp[3] << std::endl;
+    init_x = (float)(tmp[1])-48;
+    init_y = (float)(tmp[3])-48;
+    std::cout << "Start: " << init_x << " " << init_y << std::endl;
 
     std::getline(f, tmp);  // # End:
     std::getline(f, tmp);  // actual end cell
-    std::cout << tmp[1] << " " << tmp[3] << std::endl;
+    end_x = (float)(tmp[1])-48;
+    end_y = (float)(tmp[3])-48;
+    std::cout << "End: " << end_x << " " << end_y << std::endl;
 
+    std::getline(f, tmp);  // # Cells: 
+    while (!f.eof()) {
+        Cell *c = new Cell(0,0);
+        f >> *c;
+        int nb_neighors = f.get() - 48;
 
-    Cell *cell = NULL;
+        f.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-//    f >> *cell;
+        std::pair<int,int>c_xy (c->m_x, c->m_y);   // instantiate the pair for future reference
+        m_cells[c_xy] = c;
+    }
 
+//    while (!f.eof()) {
+//        std::getline(f, tmp);  // read current line
+//    }
+
+    for (auto it = m_cells.begin(); it != m_cells.end(); it++) {
+        std::cout << it->first.first << "," << it->first.second << " : " << it->second->toString() << std::endl;
+    }
+
+    
     f.close();
 
 //    Maze maze = create_maze(init,end);

@@ -17,7 +17,7 @@ class Cell {
     std::string toString();
 
     friend std::ostream& operator<<(std::ostream& stream, const Cell& c);
-    friend std::iostream& operator>>(std::iostream& stream, Cell& c);
+    friend std::istream& operator>>(std::istream& stream, Cell& c);
 
 //  private:
     double m_x;

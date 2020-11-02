@@ -33,117 +33,154 @@ int main() {
                             );
     vibes::axisLimits(0-0.5, 4+0.5, 0-0.5, 4+0.5);
 
-    // the cells
-    Cell *c11 = new Cell(1,1);
-    Cell *c12 = new Cell(1,2);
-    Cell *c13 = new Cell(1,3);
-    Cell *c14 = new Cell(1,4);
-    Cell *c21 = new Cell(2,1);
-    Cell *c22 = new Cell(2,2);
-    Cell *c23 = new Cell(2,3);
-    Cell *c24 = new Cell(2,4);
-    Cell *c31 = new Cell(3,1);
-    Cell *c32 = new Cell(3,2);
-    Cell *c33 = new Cell(3,3);
-    Cell *c34 = new Cell(3,4);
-    Cell *c41 = new Cell(4,1);
-    Cell *c42 = new Cell(4,2);
-    Cell *c43 = new Cell(4,3);
-    Cell *c44 = new Cell(4,4);
+//    // the cells
+//    Cell *c11 = new Cell(1,1);
+//    Cell *c12 = new Cell(1,2);
+//    Cell *c13 = new Cell(1,3);
+//    Cell *c14 = new Cell(1,4);
+//    Cell *c21 = new Cell(2,1);
+//    Cell *c22 = new Cell(2,2);
+//    Cell *c23 = new Cell(2,3);
+//    Cell *c24 = new Cell(2,4);
+//    Cell *c31 = new Cell(3,1);
+//    Cell *c32 = new Cell(3,2);
+//    Cell *c33 = new Cell(3,3);
+//    Cell *c34 = new Cell(3,4);
+//    Cell *c41 = new Cell(4,1);
+//    Cell *c42 = new Cell(4,2);
+//    Cell *c43 = new Cell(4,3);
+//    Cell *c44 = new Cell(4,4);
+//
+//    // the connections
+//    Cell::add_neighb(c14,c24);
+//    Cell::add_neighb(c24,c34);
+//    Cell::add_neighb(c34,c44);
+//    Cell::add_neighb(c44,c43);
+//    Cell::add_neighb(c43,c42);
+//    Cell::add_neighb(c42,c41);
+//    Cell::add_neighb(c41,c31);
+//    Cell::add_neighb(c31,c32);
+//    Cell::add_neighb(c32,c22);
+//    Cell::add_neighb(c22,c23);
+//    Cell::add_neighb(c23,c33);
+//    Cell::add_neighb(c22,c21);
+//    Cell::add_neighb(c21,c11);
+//    Cell::add_neighb(c11,c12);
+//    Cell::add_neighb(c12,c13);
+//
+//    display_graph(c21);
+//
+//    Maze maze = create_maze(c13,c14);
+//
+//    save_maze(maze, "td4_maze.txt");
+//
+//    display(maze);
+//
+//    Path *path = new Path(c13);
+//    bool path_exists = find_path(c13, c14, path);
+//
+//    if (path_exists)
+//        path->print_path();
+//    else
+//        std::cout << "There is no path between " << c13->toString() << " and " << c14->toString() << std::endl;
+//
+//    // freeing memory
+//    delete path;
+//    delete c11;
+//    delete c12;
+//    delete c13;
+//    delete c14;
+//    delete c21;
+//    delete c22;
+//    delete c23;
+//    delete c24;
+//    delete c31;
+//    delete c32;
+//    delete c33;
+//    delete c34;
+//    delete c41;
+//    delete c42;
+//    delete c43;
+//    delete c44;
 
-    // the connections
-    Cell::add_neighb(c14,c24);
-    Cell::add_neighb(c24,c34);
-    Cell::add_neighb(c34,c44);
-    Cell::add_neighb(c44,c43);
-    Cell::add_neighb(c43,c42);
-    Cell::add_neighb(c42,c41);
-    Cell::add_neighb(c41,c31);
-    Cell::add_neighb(c31,c32);
-    Cell::add_neighb(c32,c22);
-    Cell::add_neighb(c22,c23);
-    Cell::add_neighb(c23,c33);
-    Cell::add_neighb(c22,c21);
-    Cell::add_neighb(c21,c11);
-    Cell::add_neighb(c11,c12);
-    Cell::add_neighb(c12,c13);
+    Maze maze = read_maze("data/laby4x4.txt");
+//    Maze maze = read_maze("data/laby4x4.txt");
+//    Maze maze = read_maze("data/laby4x4.txt");
 
-    display_graph(c21);
-
-    Maze maze = create_maze(c13,c14);
-
-    save_maze(maze, "td4_maze.txt");
-
-    display(maze);
-
-    Path *path = new Path(c13);
-    bool path_exists = find_path(c13, c14, path);
-
-    if (path_exists)
-        path->print_path();
-    else
-        std::cout << "There is no path between " << c13->toString() << " and " << c14->toString() << std::endl;
-
-    // freeing memory
-    delete path;
-    delete c11;
-    delete c12;
-    delete c13;
-    delete c14;
-    delete c21;
-    delete c22;
-    delete c23;
-    delete c24;
-    delete c31;
-    delete c32;
-    delete c33;
-    delete c34;
-    delete c41;
-    delete c42;
-    delete c43;
-    delete c44;
+//    display(maze);
+//
+//    Path *path = new Path(c13);
+//    bool path_exists = find_path(c13, c14, path);
+//
+//    if (path_exists)
+//        path->print_path();
+//    else
+//        std::cout << "There is no path between " << c13->toString() << " and " << c14->toString() << std::endl;
 
     return 0;
 }
 
-Maze read_maze(const std::string& file_name);
+Maze read_maze(const std::string& file_name) {
+    std::ifstream f(file_name);
+    std::string tmp;
+
+    std::getline(f, tmp);  // # Start:
+    std::getline(f, tmp);  // actual first cell
+    std::cout << tmp[1] << " " << tmp[3] << std::endl;
+
+    std::getline(f, tmp);  // # End:
+    std::getline(f, tmp);  // actual end cell
+    std::cout << tmp[1] << " " << tmp[3] << std::endl;
+
+
+    Cell *cell = NULL;
+
+//    f >> *cell;
+
+    f.close();
+
+//    Maze maze = create_maze(init,end);
+//    return maze;
+}
 
 void save_cells(Cell* cell, std::ofstream *f) {
-    cell->m_saved = true;
+    cell->m_saved = true;  // checks that the current cell is saved
 
-    *f << *cell;
-    *f << std::to_string(cell->m_nb_neighb);
+    *f << *cell;  // saves the cell
+    *f << std::to_string(cell->m_nb_neighb);  // saves the number of neighbors
 
-    for(int i = 0 ; i < cell->m_nb_neighb ; i++) {
+    for(int i = 0 ; i < cell->m_nb_neighb ; i++) {  // saves all of the neighbors
         *f << *(cell->m_neighb[i]);
     }
     *f << std::endl;
 
-    for(int i = 0 ; i < cell->m_nb_neighb ; i++) {
-        if (!cell->m_neighb[i]->m_saved) {
+    for(int i = 0 ; i < cell->m_nb_neighb ; i++) {  // recursively call the saving function for
+        if (!cell->m_neighb[i]->m_saved) {          // every neighbour that hasnt been saved yet
             save_cells(cell->m_neighb[i], f);
         }
     }
 }
 
 void save_maze(const Maze& maze, const std::string& file_name) {
-    std::ofstream f(file_name);
+    std::ofstream f(file_name);  // open the file
 
-    if (!f.is_open()) {
+    if (!f.is_open()) {  // test if file opening failed
         std::cout << "Error opening file " << file_name << std::endl;
         return;
 
     } else {
+        // write starting lines of the file with start and end cells
         f << "# Start:" << std::endl;
         f << *maze.init << std::endl;
         f << "# End:" << std::endl;
         f << *maze.init << std::endl;
 
         f << "# Cells:" << std::endl;
-
-        Cell *cell = maze.init;
-        save_cells(cell, &f);
+        Cell *cell = maze.init;  // gets starting cell of the maze 
+        save_cells(cell, &f);    // start saving the cells by the initial cell 
     }
+
+    f.close();
 }
 
 bool compare_cells(const Cell *c1, const Cell *c2) {

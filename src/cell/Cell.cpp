@@ -69,3 +69,12 @@ std::ostream& operator<<(std::ostream& stream, const Cell& c) {
 
    return stream;
 }
+
+std::istream& operator>>(std::istream& stream, Cell& c) {
+   std::string tmp;
+   std::getline(stream, tmp);
+//   Cell *cell = new Cell(atof(tmp[1]), atof(tmp[3]);
+   std::cout << tmp << std::endl;
+
+   return stream;
+}

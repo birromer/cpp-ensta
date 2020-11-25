@@ -76,7 +76,7 @@ int main() {
 
     Maze maze = create_maze(c13,c14);
 
-    save_maze(maze, "td4_maze.txt");
+    save_maze(maze, "td4_maze.txt");  // save the maze on a file
 
     display(maze);
 
@@ -144,13 +144,13 @@ Maze read_maze(const std::string& file_name) {
 
     std::getline(f, tmp);  // # Start: line
     std::getline(f, tmp);  // actual first cell
-    init_x = (float)(tmp[1])-48;
+    init_x = (float)(tmp[1])-48;  // coordinats of entry cell
     init_y = (float)(tmp[3])-48;
     std::cout << "Start: " << init_x << " " << init_y << std::endl;
 
     std::getline(f, tmp);  // # End: line
     std::getline(f, tmp);  // actual end cell
-    end_x = (float)(tmp[1])-48;
+    end_x = (float)(tmp[1])-48;  // coordinates of exit cell
     end_y = (float)(tmp[3])-48;
     std::cout << "End: " << end_x << " " << end_y << std::endl;
 
@@ -161,13 +161,13 @@ Maze read_maze(const std::string& file_name) {
         f >> *c_base;
         std::pair<int,int>c_xy (c_base->m_x, c_base->m_y);   // instantiate the pair for future reference
 
-        int nb_neighors = f.get() - 48;
+        int nb_neighors = f.get() - 48;  // gets number of neighburs to iterate over them later and move pointer
         std::list<std::pair<int,int>> neighbours;
 
-        Cell *c = new Cell(0,0);
+        Cell *c = new Cell(0,0);  // temporary cell to get cells from file
         for (int i = 0; i < nb_neighors; i++) {
             f >> *c;
-            neighbours.push_back(std::make_pair(c->m_x, c->m_y));
+            neighbours.push_back(std::make_pair(c->m_x, c->m_y)); // store coordinates on neighbours list
         }
         f.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         m_cells[c_xy] = std::make_pair(c_base, neighbours);
